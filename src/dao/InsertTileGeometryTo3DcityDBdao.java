@@ -17,7 +17,7 @@ public class InsertTileGeometryTo3DcityDBdao {
 			System.out.println("You made it, take control your database now!");
 			
 			try {
-				PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO tile_geometry(tile_id, tile_geometry) VALUES (?, ?)");
+				PreparedStatement prepStmt = connection.prepareStatement("INSERT INTO tile_geometry(tile_id, tile_geom) VALUES (?, ?)");
 				prepStmt.setInt(1, tileID);
 				prepStmt.setObject(2, geom);
 				

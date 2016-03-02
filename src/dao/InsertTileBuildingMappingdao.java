@@ -27,8 +27,8 @@ public class InsertTileBuildingMappingdao {
 					        "surface_geometry.cityobject_id = thematic_surface.id and surface_geometry.geometry!='' "+
 					        "WHERE thematic_surface.objectclass_id = 35) as table2 "+
 
-					        "WHERE ST_IsEmpty(ST_Intersection(table2.groundPolygon , tile_geometry)) = FALSE "+
-					        "and ST_Area(ST_Intersection(table2.groundPolygon , tile_geometry))/ST_Area(table2.groundPolygon) >= 0.5 "+
+					        "WHERE ST_IsEmpty(ST_Intersection(table2.groundPolygon , tile_geom)) = FALSE "+
+					        "and ST_Area(ST_Intersection(table2.groundPolygon , tile_geom))/ST_Area(table2.groundPolygon) >= 0.5 "+
 					        "ORDER BY tile_id); ");
 				
 				int results = prepStmt.executeUpdate();
