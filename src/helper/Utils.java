@@ -2,6 +2,8 @@ package helper;
 
 import java.io.File;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.xml.bind.JAXBException;
 
@@ -38,4 +40,24 @@ public class Utils {
 			return null;
 
 	}
+	public static <T> Set<T> union(Set<T> setA, Set<T> setB) {
+	    Set<T> tmp = new TreeSet<T>(setA);
+	    tmp.addAll(setB);
+	    return tmp;
+	  }
+
+	  public static <T> Set<T> intersection(Set<T> setA, Set<T> setB) {
+	    Set<T> tmp = new TreeSet<T>();
+	    for (T x : setA)
+	      if (setB.contains(x))
+	        tmp.add(x);
+	    return tmp;
+	  }
+
+	  public static <T> Set<T> difference(Set<T> setA, Set<T> setB) {
+	    Set<T> tmp = new TreeSet<T>(setA);
+	    tmp.removeAll(setB);
+	    return tmp;
+	  }
+
 }

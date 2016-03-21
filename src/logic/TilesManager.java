@@ -21,13 +21,15 @@ import dao.TileFromCamPoint;
 import gov.nasa.worldwind.geom.Position;
 import helper.Properties;
 
-public class CreateTilesManager {
+public class TilesManager {
 
 	//private static int srid = 93068;
-	public void generateTiles() throws JAXBException, CityGMLReadException{
-		Envelope envelope = helper.Utils.getEnvelope(Properties.filename);
+	public TilesManager() throws JAXBException, CityGMLReadException{
+		Envelope envelope = OutterEnvelope.getAreaEnvelope();
 		Properties.evelope = envelope;
-		createTilesFromEnvelope(envelope);
+	}
+	public void generateTiles(){
+		createTilesFromEnvelope(Properties.evelope);
 	}
 	
 	public void createTilesFromEnvelope(Envelope envelope) {
@@ -54,14 +56,18 @@ public class CreateTilesManager {
 		}
 	}
 	
-	public List<Integer> getRenderingTiles(Position position){
+	public static List<Integer> getRenderingTiles(Position position){
 		
 		int centerTile = TileFromCamPoint.getTileIDFrompoint(position);
+		System.out.println("CenterTile:" + centerTile);
 		//get the D8 tiles for rendering:
+		if(centerTile == 0){
+			return null;
+		}
 		List<Integer> tileList = getTileList(centerTile);
 		return tileList;
 	}
-	public List<Integer> getTileList(int tileID){
+	public static List<Integer> getTileList(int tileID){
 		List<Double> lower = Properties.evelope.getLowerCorner().getValue();
 		List<Double> upper = Properties.evelope.getUpperCorner().getValue();
 		int rows = (int) ((upper.get(0) - lower.get(0))/Properties.tileSize);

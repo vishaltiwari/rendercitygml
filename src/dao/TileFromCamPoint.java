@@ -16,7 +16,7 @@ public class TileFromCamPoint {
 	public static int getTileIDFrompoint(Position position){
 		String lat = position.getLatitude().toString();
 		String lon = position.getLongitude().toString();
-		String geomString = lat.substring(0, lat.length()-1) + " " + lon.substring(0, lon.length()-1) + " " + position.elevation ;
+		String geomString = lon.substring(0, lon.length()-1) + " " + lat.substring(0, lat.length()-1) + " " + position.elevation ;
 		Connection connection = Properties.connection;
 		if (connection != null) {
 			try {
