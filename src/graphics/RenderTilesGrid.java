@@ -7,6 +7,7 @@ import org.postgis.PGgeometry;
 import gov.nasa.worldwind.layers.RenderableLayer;
 import gov.nasa.worldwind.render.Material;
 import helper.Properties;
+import model.BuildingSurface;
 import model.Tile;
 
 public class RenderTilesGrid extends RenderCityObject {
@@ -22,7 +23,7 @@ public class RenderTilesGrid extends RenderCityObject {
 	@Override
 	public void renderObject() {
 		RenderableGeometry renderGeom = new RenderablePolygonGeom(Material.WHITE, 5, 0.5, true);
-		renderGeom.addToRenderableLayer(tileLayer, tile.getTileGeometry());
+		renderGeom.addToRenderableLayer(tileLayer, new BuildingSurface(tile.getTileGeometry()));
 	}
 
 	@Override

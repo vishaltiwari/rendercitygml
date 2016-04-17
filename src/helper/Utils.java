@@ -18,6 +18,10 @@ import org.citygml4j.model.gml.geometry.primitives.Envelope;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
 import org.citygml4j.xml.io.reader.CityGMLReader;
+import org.postgis.Geometry;
+import org.postgis.LinearRing;
+import org.postgis.PGgeometry;
+import org.postgis.Polygon;
 
 public class Utils {
 
@@ -70,6 +74,26 @@ public class Utils {
 	    Set<T> tmp = new TreeSet<T>(setA);
 	    tmp.removeAll(setB);
 	    return tmp;
+	  }
+	  
+	  public static float[] convertPGgeometryToFloats(PGgeometry geom){
+		  if(geom == null) return null;
+		  List<Float> list = new ArrayList<>();
+		  Polygon p1 = (Polygon) geom.getGeometry();
+			for (int i = 0; i < p1.numRings(); i++) {
+				LinearRing ring = p1.getRing(i);
+
+				for (int j = 0; j < ring.numPoints() ; j++) {
+					list.add((float)ring.getPoint(j).getX());
+					list.add((float)ring.getPoint(j).getY());
+				}
+			}
+			float[] texCoords = new float[list.size()];
+			int i=0;
+			for(Float f : list){
+				texCoords[i++] = f;
+			}
+		  return texCoords;
 	  }
 
 }

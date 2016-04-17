@@ -23,9 +23,9 @@ public class Building {
 	
 	private Integer tile_id; 
 	
-	private List<PGgeometry> groundSurface;
-	private List<PGgeometry> roofSurface;
-	private List<PGgeometry> wallSurface;
+	private List<BuildingSurface> groundSurface;
+	private List<BuildingSurface> roofSurface;
+	private List<BuildingSurface> wallSurface;
 	
 	
 	
@@ -166,119 +166,185 @@ public class Building {
 			return false;
 		return true;
 	}
+	/**
+	 * @return the id
+	 */
 	public Integer getId() {
 		return id;
 	}
+	/**
+	 * @param id the id to set
+	 */
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	/**
+	 * @return the class_
+	 */
 	public String getClass_() {
 		return class_;
 	}
+	/**
+	 * @param class_ the class_ to set
+	 */
 	public void setClass_(String class_) {
 		this.class_ = class_;
 	}
+	/**
+	 * @return the class_codespace
+	 */
 	public String getClass_codespace() {
 		return class_codespace;
 	}
+	/**
+	 * @param class_codespace the class_codespace to set
+	 */
 	public void setClass_codespace(String class_codespace) {
 		this.class_codespace = class_codespace;
 	}
+	/**
+	 * @return the function_codespace
+	 */
 	public String getFunction_codespace() {
 		return function_codespace;
 	}
+	/**
+	 * @param function_codespace the function_codespace to set
+	 */
 	public void setFunction_codespace(String function_codespace) {
 		this.function_codespace = function_codespace;
 	}
+	/**
+	 * @return the function
+	 */
 	public String getFunction() {
 		return function;
 	}
+	/**
+	 * @param function the function to set
+	 */
 	public void setFunction(String function) {
 		this.function = function;
 	}
+	/**
+	 * @return the usage
+	 */
 	public String getUsage() {
 		return usage;
 	}
+	/**
+	 * @param usage the usage to set
+	 */
 	public void setUsage(String usage) {
 		this.usage = usage;
 	}
+	/**
+	 * @return the usage_codespace
+	 */
 	public String getUsage_codespace() {
 		return usage_codespace;
 	}
+	/**
+	 * @param usage_codespace the usage_codespace to set
+	 */
 	public void setUsage_codespace(String usage_codespace) {
 		this.usage_codespace = usage_codespace;
 	}
+	/**
+	 * @return the year_of_construction
+	 */
 	public String getYear_of_construction() {
 		return year_of_construction;
 	}
+	/**
+	 * @param year_of_construction the year_of_construction to set
+	 */
 	public void setYear_of_construction(String year_of_construction) {
 		this.year_of_construction = year_of_construction;
 	}
+	/**
+	 * @return the year_of_demolition
+	 */
 	public String getYear_of_demolition() {
 		return year_of_demolition;
 	}
+	/**
+	 * @param year_of_demolition the year_of_demolition to set
+	 */
 	public void setYear_of_demolition(String year_of_demolition) {
 		this.year_of_demolition = year_of_demolition;
 	}
+	/**
+	 * @return the roof_type
+	 */
 	public String getRoof_type() {
 		return roof_type;
 	}
+	/**
+	 * @param roof_type the roof_type to set
+	 */
 	public void setRoof_type(String roof_type) {
 		this.roof_type = roof_type;
 	}
+	/**
+	 * @return the roof_type_codespace
+	 */
 	public String getRoof_type_codespace() {
 		return roof_type_codespace;
 	}
+	/**
+	 * @param roof_type_codespace the roof_type_codespace to set
+	 */
 	public void setRoof_type_codespace(String roof_type_codespace) {
 		this.roof_type_codespace = roof_type_codespace;
 	}
+	/**
+	 * @return the measured_height
+	 */
 	public Double getMeasured_height() {
 		return measured_height;
 	}
+	/**
+	 * @param measured_height the measured_height to set
+	 */
 	public void setMeasured_height(Double measured_height) {
 		this.measured_height = measured_height;
 	}
+	/**
+	 * @return the measured_height_unit
+	 */
 	public Double getMeasured_height_unit() {
 		return measured_height_unit;
 	}
+	/**
+	 * @param measured_height_unit the measured_height_unit to set
+	 */
 	public void setMeasured_height_unit(Double measured_height_unit) {
 		this.measured_height_unit = measured_height_unit;
 	}
+	/**
+	 * @return the storeys_above_ground
+	 */
 	public Integer getStoreys_above_ground() {
 		return storeys_above_ground;
 	}
+	/**
+	 * @param storeys_above_ground the storeys_above_ground to set
+	 */
 	public void setStoreys_above_ground(Integer storeys_above_ground) {
 		this.storeys_above_ground = storeys_above_ground;
 	}
+	/**
+	 * @return the storeys_below_ground
+	 */
 	public Integer getStoreys_below_ground() {
 		return storeys_below_ground;
 	}
+	/**
+	 * @param storeys_below_ground the storeys_below_ground to set
+	 */
 	public void setStoreys_below_ground(Integer storeys_below_ground) {
 		this.storeys_below_ground = storeys_below_ground;
-	}
-
-	public List<PGgeometry> getGroundSurface() {
-		return groundSurface;
-	}
-
-	public void setGroundSurface(List<PGgeometry> groundSurface) {
-		this.groundSurface = groundSurface;
-	}
-
-	public List<PGgeometry> getRoofSurface() {
-		return roofSurface;
-	}
-
-	public void setRoofSurface(List<PGgeometry> roofSurface) {
-		this.roofSurface = roofSurface;
-	}
-
-	public List<PGgeometry> getWallSurface() {
-		return wallSurface;
-	}
-
-	public void setWallSurface(List<PGgeometry> wallSurface) {
-		this.wallSurface = wallSurface;
 	}
 	/**
 	 * @return the tile_id
@@ -292,6 +358,40 @@ public class Building {
 	public void setTile_id(Integer tile_id) {
 		this.tile_id = tile_id;
 	}
-	
-	
+	/**
+	 * @return the groundSurface
+	 */
+	public List<BuildingSurface> getGroundSurface() {
+		return groundSurface;
+	}
+	/**
+	 * @param groundSurface the groundSurface to set
+	 */
+	public void setGroundSurface(List<BuildingSurface> groundSurface) {
+		this.groundSurface = groundSurface;
+	}
+	/**
+	 * @return the roofSurface
+	 */
+	public List<BuildingSurface> getRoofSurface() {
+		return roofSurface;
+	}
+	/**
+	 * @param roofSurface the roofSurface to set
+	 */
+	public void setRoofSurface(List<BuildingSurface> roofSurface) {
+		this.roofSurface = roofSurface;
+	}
+	/**
+	 * @return the wallSurface
+	 */
+	public List<BuildingSurface> getWallSurface() {
+		return wallSurface;
+	}
+	/**
+	 * @param wallSurface the wallSurface to set
+	 */
+	public void setWallSurface(List<BuildingSurface> wallSurface) {
+		this.wallSurface = wallSurface;
+	}	
 }

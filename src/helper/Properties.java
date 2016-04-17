@@ -18,5 +18,7 @@ public class Properties {
 	public static RenderableLayer buildingsLayer = new RenderableLayer();
 	public static RenderableLayer tilesLayer = new RenderableLayer();
 	public static int batchSize=300;
+	public static String appearencePath="/home/vishal/myProjects/rendercitygml/datasets/Lichtenberg/appearance";
+	public static boolean textureSwith = true;
 	
 }

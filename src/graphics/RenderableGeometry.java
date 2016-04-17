@@ -1,12 +1,8 @@
 package graphics;
 
-import java.util.List;
-
-import org.postgis.PGgeometry;
-
 import gov.nasa.worldwind.layers.RenderableLayer;
 import gov.nasa.worldwind.render.Material;
-import sun.java2d.pipe.OutlineTextRenderer;
+import model.BuildingSurface;
 
 public abstract class RenderableGeometry {
 	
@@ -22,8 +18,8 @@ public abstract class RenderableGeometry {
 		this.drawInterior = drawInterior;
 	}
 	
-	public abstract void addToRenderableLayer(RenderableLayer layer, PGgeometry geomList);
-	public abstract void removeFromRenderableLayer(RenderableLayer layer, PGgeometry geomList);
+	public abstract void addToRenderableLayer(RenderableLayer layer, BuildingSurface geomList);
+	public abstract void removeFromRenderableLayer(RenderableLayer layer, BuildingSurface geomList);
 	
 	
 }

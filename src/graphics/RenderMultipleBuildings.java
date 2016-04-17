@@ -51,7 +51,7 @@ public class RenderMultipleBuildings {
 		List<Integer> addList = addRemTiles.get(0);
 		Properties.buildingsLayer.removeAllRenderables();
 		for (Integer tileID : addList) {
-			List<Building> buildings = GetBuildingsFromTileID.getBuildingsFromtileID(tileID, true);
+			List<Building> buildings = GetBuildingsFromTileID.getBuildingsFromtileID(tileID, true , Properties.textureSwith);
 			for (Building building : buildings) {
 				RenderBuilding buildingRenderer = new RenderBuilding(building, Properties.buildingsLayer);
 				buildingRenderer.renderObject();
@@ -59,16 +59,16 @@ public class RenderMultipleBuildings {
 		}
 		List<Integer> remList = addRemTiles.get(1);
 		for (Integer tileID : remList) {
-			List<Building> remBuildings = GetBuildingsFromTileID.getBuildingsFromtileID(tileID, true);
+			List<Building> remBuildings = GetBuildingsFromTileID.getBuildingsFromtileID(tileID, true , Properties.textureSwith);
 			for (Building building : remBuildings) {
-				RenderBuilding buildingRemover = new RenderBuilding(building, Properties.buildingsLayer);
+				RenderBuilding buildingRemover = new RenderBuilding(building, Properties.buildingsLayer );
 				buildingRemover.removeObject();
 			}
 		}
 	}
 
 	public static void renderAllAtOnce() {
-		List<Building> buildings = GetBuildingsFromTileID.getBuildingsFromtileID(0, false);
+		List<Building> buildings = GetBuildingsFromTileID.getBuildingsFromtileID(0, false , Properties.textureSwith);
 		for (Building building : buildings) {
 			RenderBuilding buildingRender = new RenderBuilding(building, Properties.buildingsLayer);
 			buildingRender.renderObject();

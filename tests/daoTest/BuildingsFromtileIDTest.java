@@ -13,7 +13,7 @@ public class BuildingsFromtileIDTest {
 
 	@Test
 	public void test() {
-		List<Building> list = GetBuildingsFromTileID.getBuildingsFromtileID(1,true);
+		//List<Building> list = GetBuildingsFromTileID.getBuildingsFromtileID(1,true);
 	}
 
 }

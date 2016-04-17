@@ -18,6 +18,8 @@ import gov.nasa.worldwind.render.Material;
 import gov.nasa.worldwind.render.Polygon;
 import gov.nasa.worldwind.render.Renderable;
 import gov.nasa.worldwind.render.ShapeAttributes;
+import gov.nasa.worldwind.render.WWTexture;
+import model.BuildingSurface;
 
 public class RenderablePolygonGeom extends RenderableGeometry {
 
@@ -32,10 +34,21 @@ public class RenderablePolygonGeom extends RenderableGeometry {
 		normalAttributes.setOutlineWidth(outlineWidth);
 		normalAttributes.setOutlineOpacity(outlineOpacity);
 		normalAttributes.setDrawInterior(drawInterior);
+		
+		normalAttributes.setInteriorOpacity(1);
+		normalAttributes.setDrawOutline(true);
+		normalAttributes.setEnableLighting(true);
+		
 	}
 
+	//Change PGgeometry To BuildingSurface. 
 	@Override
-	public void addToRenderableLayer(RenderableLayer layer, PGgeometry geom) {
+	public void addToRenderableLayer(RenderableLayer layer, BuildingSurface surface) {
+		//Add a PGgeometry var, float[] , and a String variable.
+		PGgeometry geom = surface.getGeom();
+		float[] texCoords = surface.getTexCoords();
+		//float[] texCoords = new float[] {0, 0, 1, 0, 1, 1, 0, 1};
+		String imageURI = surface.getImageURI();
 		ArrayList<Position> geomPositions = new ArrayList<>();
 		org.postgis.Polygon p = (org.postgis.Polygon) geom.getGeometry();
 		for (int i = 0; i < p.numRings(); i++) {
@@ -47,14 +60,24 @@ public class RenderablePolygonGeom extends RenderableGeometry {
 			}
 			polygon = new Polygon(geomPositions);
 			polygon.setAttributes(normalAttributes);
+			//polygon.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
+			if(texCoords != null && texCoords.length != 0)
+				polygon.setTextureImageSource(imageURI, texCoords, texCoords.length /2);
 			polygon.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
+			//float[] coords = polygon.getTextureCoords();
+			//Object src = polygon.getTextureImageSource();
+			//polygon.setTextureImageSource(imageSource, texCoords, texCoordCount);
 			layer.addRenderable(polygon);
 			addedPolygons.add(polygon);
 		}
 	}
 
 	@Override
-	public void removeFromRenderableLayer(RenderableLayer layer, PGgeometry geom) {
+	public void removeFromRenderableLayer(RenderableLayer layer, BuildingSurface surface) {
+		PGgeometry geom = surface.getGeom();
+		float[] textCoords = surface.getTexCoords();
+		String imageURI = surface.getImageURI();
+		
 		ArrayList<Position> geomPositions = new ArrayList<>();
 		org.postgis.Polygon p = (org.postgis.Polygon) geom.getGeometry();
 		for (int i = 0; i < p.numRings(); i++) {
