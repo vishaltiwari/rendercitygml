@@ -31,7 +31,7 @@ public class InsertTo3DCityDBTest {
                 }
             );
 		PGgeometry geometry = new PGgeometry(geo);
-		InsertTileGeometryTo3DcityDBdao.saveTileToDB(tileID, geometry);
+		//InsertTileGeometryTo3DcityDBdao.saveTileToDB(tileID, geometry);
 	}
 
 }

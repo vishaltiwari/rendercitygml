@@ -25,8 +25,7 @@ public class TilesManager {
 
 	//private static int srid = 93068;
 	public TilesManager() throws JAXBException, CityGMLReadException{
-		Envelope envelope = OutterEnvelope.getAreaEnvelope();
-		Properties.evelope = envelope;
+		
 	}
 	public void generateTiles(){
 		createTilesFromEnvelope(Properties.evelope);
@@ -44,15 +43,29 @@ public class TilesManager {
 
 		int tileCount = 1;
 		int tileSize = Properties.tileSize;
+		String[] sqlStrings = new String[Properties.batchSize];
+		int added=0;
 		for (Double y = y0; y < y1; y += tileSize) {
 			for (Double x = x0; x < x1; x += tileSize) {
 				Polygon geo = new Polygon(new LinearRing[] { new LinearRing(new Point[] { new Point(x, y, 0.0d),
 						new Point(x + tileSize, y, 0.0d), new Point(x + tileSize, y + tileSize, 0.0d),
 						new Point(x, y + tileSize, 0.0d), new Point(x, y, 0.0d) }) });
-				geo.setSrid(Integer.parseInt(Properties.SRID));
+				geo.setSrid(93068);
 				PGgeometry geometry = new PGgeometry(geo);
-				InsertTileGeometryTo3DcityDBdao.saveTileToDB(tileCount++,geometry);
+				sqlStrings[added++] = InsertTileGeometryTo3DcityDBdao.createInsertStmt(tileCount++, geometry);
+				if(added == Properties.batchSize){
+					InsertTileGeometryTo3DcityDBdao.saveTileToDB(sqlStrings);
+					added = 0;
+				}
 			}
+		}
+		//because you have to insert the last batch 
+		if(added != 0){
+			String[] lastSqls = new String[added];
+			for(int i=0 ; i< added ; ++i){
+				lastSqls[i] = sqlStrings[i++];
+			}
+			InsertTileGeometryTo3DcityDBdao.saveTileToDB(lastSqls);
 		}
 	}
 	

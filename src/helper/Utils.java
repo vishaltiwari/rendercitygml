@@ -1,6 +1,7 @@
 package helper;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -13,7 +14,6 @@ import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.gml.feature.BoundingShape;
-import org.citygml4j.model.gml.geometry.primitives.DirectPosition;
 import org.citygml4j.model.gml.geometry.primitives.Envelope;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReadException;
@@ -40,6 +40,18 @@ public class Utils {
 			return null;
 
 	}
+	
+	
+	public static List<Double> getCameraInitCoordinates(Envelope env){
+		List<Double> lowerPt = env.getLowerCorner().getValue();
+		List<Double> upperPt = env.getUpperCorner().getValue();
+		List<Double> centerPoint = new ArrayList<Double>();
+		centerPoint.add((lowerPt.get(0) + upperPt.get(0)) /2);
+		centerPoint.add((lowerPt.get(1) + upperPt.get(1)) /2);
+		centerPoint.add(1000.0);
+		return centerPoint;
+	}
+	
 	public static <T> Set<T> union(Set<T> setA, Set<T> setB) {
 	    Set<T> tmp = new TreeSet<T>(setA);
 	    tmp.addAll(setB);

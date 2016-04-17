@@ -22,7 +22,10 @@ public class TileFromCamPoint {
 			try {
 				String sql = "SELECT tile_id, ST_ASTEXT(tile_geom) "+
 								" FROM tile_geometry " + 
-								" WHERE ST_Intersects(tile_geom , ST_Transform(ST_GeomFromText('POINT( "+geomString+ ")' ,"+ WGS84 +" )"+ ", "+ Properties.SRID +" ));";
+								" WHERE ST_Intersects(tile_geom , ST_Transform(ST_GeomFromText('POINT( " +geomString+ " )' , 94326 ) , "+Properties.SRID +" ))";
+/*				String sql = "SELECT tile_id, ST_ASTEXT(tile_geom) "+
+						" FROM tile_geometry " + 
+						" WHERE ST_Intersects(tile_geom , ST_Transform(ST_GeomFromText('POINT( "+geomString+ ")' ,"+ WGS84 +" )"+ ", "+ Properties.SRID +" ));";*/
 				PreparedStatement prepStmt = connection.prepareStatement(sql);
 				ResultSet rs = prepStmt.executeQuery();
 				int[] tileIDs = new int[4];

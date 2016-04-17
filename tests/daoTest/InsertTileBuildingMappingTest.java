@@ -10,7 +10,7 @@ public class InsertTileBuildingMappingTest {
 
 	@Test
 	public void test() {
-		InsertTileBuildingMappingdao.mapBuildingsToTiles();
+		//InsertTileBuildingMappingdao.mapBuildingsToTiles();
 	}
 
 }

@@ -17,10 +17,7 @@ public class GroundPolygonEnvelopeGeomdao {
 		List<PGgeometry> polygonList = new ArrayList<>();
 		Connection connection = Properties.connection;
 		if (connection != null) {
-			String sql = "SELECT id, objectclass_id, " + 
-							" envelope " + 
-							" FROM cityobject " +
-							" WHERE objectclass_id = 35;";
+			String sql = "SELECT envelope FROM cityobject WHERE objectclass_id = 26";
 			PreparedStatement prepStmt;
 			try {
 				prepStmt = connection.prepareStatement(sql);
