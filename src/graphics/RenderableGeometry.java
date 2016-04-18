@@ -18,8 +18,8 @@ public abstract class RenderableGeometry {
 		this.drawInterior = drawInterior;
 	}
 	
-	public abstract void addToRenderableLayer(RenderableLayer layer, BuildingSurface geomList);
-	public abstract void removeFromRenderableLayer(RenderableLayer layer, BuildingSurface geomList);
+	public abstract void addToRenderableLayer(RenderableLayer layer, BuildingSurface geomList , Integer tileId);
+	public abstract void removeFromRenderableLayer(RenderableLayer layer, BuildingSurface geomList , Integer tileId);
 	
 	
 }

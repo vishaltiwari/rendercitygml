@@ -47,9 +47,9 @@ public class RenderFrame extends ApplicationTemplate {
 			//Then use CLI to import the data.
 			
 			super(true, true, false);
-			RenderMultipleBuildings.renderAllAtOnce();
+//			RenderMultipleBuildings.renderAllAtOnce();
 			//addTiles();
-//			addGeometry();
+			addGeometry();
 			insertBeforePlacenames(getWwd(), Properties.tilesLayer);
 			insertBeforePlacenames(getWwd(), Properties.buildingsLayer);
 			

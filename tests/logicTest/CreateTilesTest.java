@@ -34,7 +34,7 @@ public class CreateTilesTest {
 		try {
 			
 			manager = new TilesManager();
-			List<Integer> list = manager.getTileList(1);
+			List<Integer> list = manager.getTileList(1,1);
 			assertArrayEquals((new ArrayList<Integer>(Arrays.asList(6, 5, 7, 22, 23, 21))).toArray(new Integer[1]), list.toArray(new Integer[1]));
 		} catch (JAXBException | CityGMLReadException e) {
 			e.printStackTrace();

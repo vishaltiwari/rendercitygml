@@ -1,11 +1,16 @@
 package helper;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.citygml4j.model.gml.geometry.primitives.Envelope;
 
 import dao.DBSetup;
 import gov.nasa.worldwind.layers.RenderableLayer;
+import gov.nasa.worldwind.render.Polygon;
 import logic.OutterEnvelope;
 
 public class Properties {
@@ -20,5 +25,9 @@ public class Properties {
 	public static int batchSize=300;
 	public static String appearencePath="/home/vishal/myProjects/rendercitygml/datasets/Lichtenberg/appearance";
 	public static boolean textureSwith = true;
+	public static Double heightSubtraction = 57.7400016784668;
+	public static int level = 2;
+	//public static List<Polygon> addedPolygons = new ArrayList<>();
+	public static Map<Integer , List<Polygon> > addedPolygons = new HashMap<>();
 	
 }

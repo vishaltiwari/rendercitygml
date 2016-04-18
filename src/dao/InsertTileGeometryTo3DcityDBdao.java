@@ -13,6 +13,7 @@ import helper.Properties;
 
 public class InsertTileGeometryTo3DcityDBdao {
 	
+	@Deprecated
 	public static void saveTileToDB_bck(int tileID, PGgeometry geom){
 		Connection connection = Properties.connection;
 		if (connection != null) {

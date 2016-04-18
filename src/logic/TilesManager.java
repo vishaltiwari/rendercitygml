@@ -23,6 +23,8 @@ import helper.Properties;
 
 public class TilesManager {
 
+	private static int rows = 0;
+	private static int cols = 0;
 	//private static int srid = 93068;
 	public TilesManager() throws JAXBException, CityGMLReadException{
 		
@@ -46,7 +48,10 @@ public class TilesManager {
 		String[] sqlStrings = new String[Properties.batchSize];
 		int added=0;
 		for (Double y = y0; y < y1; y += tileSize) {
+			cols++;
+			rows=0;
 			for (Double x = x0; x < x1; x += tileSize) {
+				rows++;
 				Polygon geo = new Polygon(new LinearRing[] { new LinearRing(new Point[] { new Point(x, y, 0.0d),
 						new Point(x + tileSize, y, 0.0d), new Point(x + tileSize, y + tileSize, 0.0d),
 						new Point(x, y + tileSize, 0.0d), new Point(x, y, 0.0d) }) });
@@ -77,14 +82,16 @@ public class TilesManager {
 		if(centerTile == 0){
 			return null;
 		}
-		List<Integer> tileList = getTileList(centerTile);
+		List<Integer> tileList = getTileList(centerTile , Properties.level);
 		return tileList;
 	}
-	public static List<Integer> getTileList(int tileID){
+	
+	@Deprecated
+	public static List<Integer> getTileList_bck(int tileID){
 		List<Double> lower = Properties.evelope.getLowerCorner().getValue();
 		List<Double> upper = Properties.evelope.getUpperCorner().getValue();
-		int rows = (int) ((upper.get(0) - lower.get(0))/Properties.tileSize);
-		int cols = (int) ((upper.get(1) - lower.get(1))/Properties.tileSize);
+		//int rows = (int) ((upper.get(0) - lower.get(0))/Properties.tileSize);
+		//int cols = (int) ((upper.get(1) - lower.get(1))/Properties.tileSize);
 		int tileCount = rows * cols;
 		
 		List<Integer> tileList = new ArrayList<>();
@@ -117,4 +124,57 @@ public class TilesManager {
 		}
 		return tileList;
 	}
+	
+	public static List<Integer> getTileList(int tileID , int level){
+		List<Integer> tileList = new ArrayList<>();
+		
+		List<Double> lower = Properties.evelope.getLowerCorner().getValue();
+		List<Double> upper = Properties.evelope.getUpperCorner().getValue();
+		
+		int rows = (int) ((upper.get(0) - lower.get(0))/Properties.tileSize);
+		int cols = (int) ((upper.get(1) - lower.get(1))/Properties.tileSize);
+		
+		int start = -1 * level;
+		int end = level;
+		int[] range = new int[2*level + 1];
+		int count = 0;
+		for(int i=start ; i<=end ; ++i){
+			range[count++] = i;
+		}
+		int[] initCoords = tileToCoords(tileID, rows, cols);
+		
+		int x0 = initCoords[0];
+		int y0 = initCoords[1];
+		
+		for(int y = start ; y<= end ; ++y){
+			for(int x = start ; x<=end ; ++x){
+				int x_temp = x0 + x;
+				int y_temp = y0 + y;
+				
+				int tile = coordsToTileID(x_temp , y_temp , rows);
+				tileList.add(tile);
+			}
+		}
+		return tileList;
+	}
+	
+	
+	public static int[] tileToCoords(int tileId , int rows, int cols){
+		int[] coords = new int[2];
+		
+		if(tileId % rows == 0){
+			coords[0] = rows;
+			coords[1] = tileId / rows;
+		}
+		else{
+			coords[0] = tileId % rows;
+			coords[1] = tileId / rows + 1;
+		}
+		return coords;
+	}
+	
+	public static int coordsToTileID(int x , int y , int rows){
+		return (y -1) * rows + x;
+	}
+	
 }

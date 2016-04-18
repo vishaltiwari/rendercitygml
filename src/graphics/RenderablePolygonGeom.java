@@ -19,13 +19,13 @@ import gov.nasa.worldwind.render.Polygon;
 import gov.nasa.worldwind.render.Renderable;
 import gov.nasa.worldwind.render.ShapeAttributes;
 import gov.nasa.worldwind.render.WWTexture;
+import helper.Properties;
 import model.BuildingSurface;
 
 public class RenderablePolygonGeom extends RenderableGeometry {
 
 	private Polygon polygon = null;
 	ShapeAttributes normalAttributes = new BasicShapeAttributes();
-	private static List<Polygon> addedPolygons = new ArrayList<>();
 
 	public RenderablePolygonGeom(Material interiorMaterial, int outlineWidth, double outlineOpacity,
 			boolean drawInterior) {
@@ -43,11 +43,10 @@ public class RenderablePolygonGeom extends RenderableGeometry {
 
 	//Change PGgeometry To BuildingSurface. 
 	@Override
-	public void addToRenderableLayer(RenderableLayer layer, BuildingSurface surface) {
+	public void addToRenderableLayer(RenderableLayer layer, BuildingSurface surface , Integer tileId) {
 		//Add a PGgeometry var, float[] , and a String variable.
 		PGgeometry geom = surface.getGeom();
 		float[] texCoords = surface.getTexCoords();
-		//float[] texCoords = new float[] {0, 0, 1, 0, 1, 1, 0, 1};
 		String imageURI = surface.getImageURI();
 		ArrayList<Position> geomPositions = new ArrayList<>();
 		org.postgis.Polygon p = (org.postgis.Polygon) geom.getGeometry();
@@ -56,7 +55,7 @@ public class RenderablePolygonGeom extends RenderableGeometry {
 
 			for (int j = 0; j < ring.numPoints(); j++) {
 				Point pt = ring.getPoint(j);
-				geomPositions.add(Position.fromDegrees(pt.y, pt.x, pt.z));
+				geomPositions.add(Position.fromDegrees(pt.y, pt.x, pt.z - Properties.heightSubtraction));
 			}
 			polygon = new Polygon(geomPositions);
 			polygon.setAttributes(normalAttributes);
@@ -64,16 +63,21 @@ public class RenderablePolygonGeom extends RenderableGeometry {
 			if(texCoords != null && texCoords.length != 0)
 				polygon.setTextureImageSource(imageURI, texCoords, texCoords.length /2);
 			polygon.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
-			//float[] coords = polygon.getTextureCoords();
-			//Object src = polygon.getTextureImageSource();
-			//polygon.setTextureImageSource(imageSource, texCoords, texCoordCount);
 			layer.addRenderable(polygon);
-			addedPolygons.add(polygon);
+			
+			if(Properties.addedPolygons.containsKey(tileId)){
+				Properties.addedPolygons.get(tileId).add(polygon);
+			}
+			else{
+				List<Polygon> polygonList = new ArrayList<>();
+				polygonList.add(polygon);
+				Properties.addedPolygons.put(tileId, polygonList);
+			}
 		}
 	}
-
-	@Override
-	public void removeFromRenderableLayer(RenderableLayer layer, BuildingSurface surface) {
+	
+	@Deprecated
+	public void removeFromRenderableLayer_bck(RenderableLayer layer, BuildingSurface surface) {
 		PGgeometry geom = surface.getGeom();
 		float[] textCoords = surface.getTexCoords();
 		String imageURI = surface.getImageURI();
@@ -92,11 +96,14 @@ public class RenderablePolygonGeom extends RenderableGeometry {
 			polygon.setAltitudeMode(WorldWind.RELATIVE_TO_GROUND);
 			layer.removeRenderable(polygon);
 			//System.out.println(layer.getNumRenderables());
-			if(addedPolygons.contains(polygon)){
-				layer.removeRenderable(polygon);
-			}
+			
 			//System.out.println(layer.getNumRenderables());
 		}
+	}
+
+	@Override
+	public void removeFromRenderableLayer(RenderableLayer layer, BuildingSurface geomList, Integer tileId) {
+		
 	}
 
 }

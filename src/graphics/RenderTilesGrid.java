@@ -23,7 +23,7 @@ public class RenderTilesGrid extends RenderCityObject {
 	@Override
 	public void renderObject() {
 		RenderableGeometry renderGeom = new RenderablePolygonGeom(Material.WHITE, 5, 0.5, true);
-		renderGeom.addToRenderableLayer(tileLayer, new BuildingSurface(tile.getTileGeometry()));
+		renderGeom.addToRenderableLayer(tileLayer, new BuildingSurface(tile.getTileGeometry()) , tile.getTileID());
 	}
 
 	@Override
