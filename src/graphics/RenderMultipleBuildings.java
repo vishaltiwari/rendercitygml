@@ -24,7 +24,11 @@ public class RenderMultipleBuildings {
 		
 		List<List<Integer>> addRemList = new ArrayList<>();
 		
-		Set<Integer> currentTileSet = new HashSet<>(TilesManager.getRenderingTiles(position));
+		List<Integer> currTilesList = TilesManager.getRenderingTiles(position);
+		if(currTilesList == null)
+			return null;
+		
+		Set<Integer> currentTileSet = new HashSet<>(currTilesList);
 		Set<Integer> renderTiles = Utils.difference(Utils.union(oldTiles, currentTileSet), oldTiles);
 		Set<Integer> removeTiles = Utils.difference(Utils.union(oldTiles, currentTileSet), currentTileSet);
 		

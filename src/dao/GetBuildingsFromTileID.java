@@ -138,8 +138,13 @@ public class GetBuildingsFromTileID {
 						prevId = currId;
 					}
 					PGgeometry surfaceGeom = (PGgeometry) rs.getObject("st_transform");
-					PGgeometry textCoords = (PGgeometry) rs.getObject("texture_coordinates");
-					String imageURI = Properties.appearencePath + "/" + rs.getString("tex_image_uri");
+					PGgeometry textCoords = null;
+					String imageURI = null;
+					if(textureFlag == true){
+						textCoords = (PGgeometry) rs.getObject("texture_coordinates");
+						imageURI = Properties.appearencePath + "/" + rs.getString("tex_image_uri");
+					}
+					
 					
 					//Convert the texCoords:
 					BuildingSurface surface = new BuildingSurface(surfaceGeom , imageURI , Utils.convertPGgeometryToFloats(textCoords));

@@ -7,6 +7,7 @@ import org.postgis.PGgeometry;
 import gov.nasa.worldwind.layers.RenderableLayer;
 import gov.nasa.worldwind.render.Material;
 import gov.nasa.worldwind.render.Polygon;
+import helper.Properties;
 import model.Building;
 import model.BuildingSurface;
 
@@ -31,12 +32,22 @@ public class RenderBuilding extends RenderCityObject{
 		//For all the Three loops change PgGeometry to BuildingSurface, 
 		for(BuildingSurface surface : wallSurface){
 			//System.out.println("WallGeom:" + surface.toString());
-			RenderableGeometry rendergeom = new RenderablePolygonGeom(Material.WHITE,2,0.5,true);
+			RenderableGeometry rendergeom = null;
+			if(Properties.textureSwith == false)
+				rendergeom = new RenderablePolygonGeom(Material.YELLOW,2,0.5,true);
+			else
+				rendergeom = new RenderablePolygonGeom(Material.WHITE,2,0.5,true);
+			
 			rendergeom.addToRenderableLayer(buildingLayer, surface , tileId);
 		}
 		for(BuildingSurface surface : roofSurface){
 			//System.out.println("RoofGeom:" + surface.toString());
-			RenderableGeometry rendergeom = new RenderablePolygonGeom(Material.WHITE,2,0.5,true);
+			RenderableGeometry rendergeom = null;
+			if(Properties.textureSwith == false)
+				rendergeom = new RenderablePolygonGeom(Material.RED,2,0.5,true);
+			else
+				rendergeom = new RenderablePolygonGeom(Material.WHITE,2,0.5,true);
+				
 			rendergeom.addToRenderableLayer(buildingLayer, surface , tileId);
 		}
 		for(BuildingSurface surface : groundSurface){
