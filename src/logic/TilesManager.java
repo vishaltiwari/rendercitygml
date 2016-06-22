@@ -19,6 +19,8 @@ import com.sun.org.apache.xml.internal.serializer.utils.Utils;
 import dao.InsertTileGeometryTo3DcityDBdao;
 import dao.TileFromCamPoint;
 import gov.nasa.worldwind.geom.Position;
+import gov.nasa.worldwind.render.Material;
+import graphics.RenderTilesGrid;
 import helper.Properties;
 
 public class TilesManager {
@@ -77,6 +79,7 @@ public class TilesManager {
 	public static List<Integer> getRenderingTiles(Position position){
 		
 		int centerTile = TileFromCamPoint.getTileIDFrompoint(position);
+		RenderTilesGrid.ChangeColor(centerTile, Material.BLUE);
 		System.out.println("CenterTile:" + centerTile);
 		//get the D8 tiles for rendering:
 		if(centerTile == 0){
@@ -125,14 +128,15 @@ public class TilesManager {
 		return tileList;
 	}
 	
+	
 	public static List<Integer> getTileList(int tileID , int level){
 		List<Integer> tileList = new ArrayList<>();
 		
 		List<Double> lower = Properties.evelope.getLowerCorner().getValue();
 		List<Double> upper = Properties.evelope.getUpperCorner().getValue();
 		
-		int rows = (int) ((upper.get(0) - lower.get(0))/Properties.tileSize);
-		int cols = (int) ((upper.get(1) - lower.get(1))/Properties.tileSize);
+		int rows = (int) ((upper.get(0) - lower.get(0))/Properties.tileSize) + 1;
+		int cols = (int) ((upper.get(1) - lower.get(1))/Properties.tileSize) + 1;
 		
 		int start = -1 * level;
 		int end = level;
