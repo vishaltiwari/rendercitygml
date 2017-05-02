@@ -1,0 +1,33 @@
+Table 1.
+CREATE TABLE tile_geometry
+(
+  tile_id integer NOT NULL,
+  tile_geom geometry(PolygonZ,93068),
+  CONSTRAINT tile_geometry_pkey PRIMARY KEY (tile_id)
+)
+WITH (
+  OIDS=FALSE
+);
+=ALTER= TABLE tile_geometry
+OWNER TO postgres;
+
+Table2:(tile_building_mapping)
+
+CREATE TABLE tile_building_mapping
+(
+ tile_id integer NOT NULL,
+ building_id integer NOT NULL,
+ CONSTRAINT tile_building_mapping_pkey PRIMARY KEY (tile_id, building_id),
+ CONSTRAINT tile_building_mapping_building_id_fkey FOREIGN KEY building_id)
+ REFERENCES building (id) MATCH SIMPLE
+ ON UPDATE NO ACTION ON DELETE NO ACTION,
+ CONSTRAINT tile_building_mapping_tile_id_fkey FOREIGN KEY (tile_id)
+ REFERENCES tile_geometry (tile_id) MATCH SIMPLE
+ ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+	OIDS=FALSE
+);
+ALTER TABLE tile_building_mapping
+OWNER TO postgres;
+
